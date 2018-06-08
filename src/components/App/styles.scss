@@ -1,0 +1,70 @@
+$base-font-size: 16px;
+
+$color-body: #808080;
+$color-border: #DDD;
+$color-hover-border: #CCC;
+$color-contrast: #4E92DF;
+$color-overlay: rgba(0,0,0,0.5);
+$color-danger: #b71c1c;
+
+$ff-base: #{'Open Sans', sans-serif};
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+
+$font-size-primary: 1rem;
+$font-size-secondary: 0.875rem;
+$font-size-small: 0.75rem;
+
+$line-height-standard: 1.5rem;
+
+$padding-medium: 0.75rem;
+
+$border-radius: 4px;
+
+$z-alpha: 10;
+$z-beta: 100;
+$z-charlie: 1000;
+
+$breakpoint-mobile: 450px;
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.newListingForm {
+  margin-bottom: 3rem;
+}
+
+.listings {
+  display: inline-block;
+  width: 100%;
+}
+
+.listingItem {
+  float: left;
+  width: 48%;
+  margin-right: 4%;
+  margin-bottom: 2rem;
+
+  &:nth-child(even) {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .listingItem {
+    float: none;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
