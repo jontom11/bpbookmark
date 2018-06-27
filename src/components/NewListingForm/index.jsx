@@ -12,7 +12,7 @@ class NewListingForm extends Component {
     };
   }
 
-  //To pass name and url from parent to Edit dialog value
+  //Passes name and url from parent to Edit dialog value
   componentDidMount() {
     if (this.props.editDialogInput) {
       this.setState({
