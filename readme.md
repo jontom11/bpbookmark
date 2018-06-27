@@ -1,6 +1,6 @@
 # BiggerPockets Technical Challenge
 Technical Activity given to assess technical skills for the position of UI Engineer at BiggerPockets.
-
+### Jonathan Tom
 ## Dependencies
 This project is built using the following technologies:
 * [Node](https://nodejs.org/en/)
