@@ -71,6 +71,15 @@ $breakpoint-mobile: 450px;
   flex-wrap: wrap
 }
 
+.rightAlign {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cardHeaderHover:hover {
+  cursor: pointer;
+}
+
 @media (max-width: $breakpoint-mobile) {
   .listingItem {
     float: none;

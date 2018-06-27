@@ -26,7 +26,6 @@ class NewListingForm extends Component {
       }).catch(() => {
         return this.setState({ showError: true });
       });
-
     }
   }
 

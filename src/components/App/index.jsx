@@ -6,7 +6,8 @@ import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader} from 'material-ui/Card';
 import Dialog from 'material-ui/Dialog';
 import IconButton from 'material-ui/IconButton';
-import ActionHome from 'material-ui/svg-icons/action/home';
+import ActionDelete from 'material-ui/svg-icons/action/delete';
+import ImageEdit from 'material-ui/svg-icons/image/edit';
 
 export default class App extends Component {
   constructor() {
@@ -61,8 +62,6 @@ export default class App extends Component {
   //state and passing data on to API
   handleEditSubmitClick(title1, url1) {
     let selectedIndex = this.state.selectedIndex;
-    // let newTitle = this.state.newTitle;
-    // let newUrl = this.state.newUrl;
     let newTitle = title1;
     let newUrl = url1;
 
@@ -88,7 +87,7 @@ export default class App extends Component {
 
     this.handleDialogClose();
 
-    //Prevents API calls if nothing changed as client calls are expensive
+    //Prevents API calls if nothing changed as client calls may be expensive
     if (dataChanged) {
       client.editListing(listId, title, url);
     }
@@ -98,18 +97,14 @@ export default class App extends Component {
     this.setState({open: false});
   }
 
-  getData() {
-    let data = {};
-    if (this.state.selectedIndex !== '') {
-      data['title'] = this.state.listings[this.state.selectedIndex].title;
-      data['url'] = this.state.listings[this.state.selectedIndex].url;
-    }
-    return data;
-  }
-
-  // create Delete listings case calling client.delete
-
   render() {
+    let style = {
+      smallIcon: {
+        width: 20,
+        height: 20
+      }
+    };
+
     const actions = [
       <FlatButton
         key={1}
@@ -125,14 +120,24 @@ export default class App extends Component {
           <CardHeader
             title={listing.title}
             subtitle={listing.url}
+            onClick={ ()=> window.open(listing.url)}
+            className={styles.cardHeaderHover}
           />
           <CardActions>
-          <IconButton tooltip="SVG Icon">
-                <ActionHome />
-              </IconButton>
-          <FlatButton label="Delete" onClick={this.handleDelete.bind(this, index)} />
-          <FlatButton label="Edit" onClick={this.handleEdit.bind(this, index)}/>
-          <FlatButton label="Go" onClick={ ()=> window.open(listing.url)}/>
+          <IconButton
+            tooltipPosition="top-center"
+            tooltip="Edit"
+            iconStyle={style.smallIcon}
+          >
+            <ImageEdit label="Edit" onClick={this.handleEdit.bind(this, index)}/>
+          </IconButton>
+          <IconButton
+            tooltipPosition="top-center"
+            tooltip="Delete"
+            iconStyle={style.smallIcon}
+          >
+            <ActionDelete label="Delete" onClick={this.handleDelete.bind(this, index)} />
+          </IconButton>
           </CardActions>
         </Card>
       );
