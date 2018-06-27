@@ -9,7 +9,7 @@
   "scripts": {
     "start": "webpack-dev-server --env=dev --watch --open",
     "build": "webpack --env=prod",
-    "heroku-postbuild": "cd client && yarn --production=false && yarn run build"
+    "heroku-postbuild": "yarn --production=false && yarn run build"
 
   },
   "dependencies": {
