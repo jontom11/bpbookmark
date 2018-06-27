@@ -23,13 +23,13 @@ yarn start
 ```
 
 ## TODO
-We would like you to build a system in which you can keep track of the properties that you’re interested in buying or renting. 
+We would like you to build a system in which you can keep track of the properties that you’re interested in buying or renting.
 This is essentially a bookmarking tool. Please consider the mockup provided [here](https://bp-assessment.s3.amazonaws.com/ui-engineer-design-mockup.png)
 
 As part of this challenge you will be expected to interface with a RESTFUL, JSON API which largely follows the JSON API spec (https://jsonapi.org).
 API documentation can be found here: http://clientside-api.herokuapp.com/apipie
 
-Your email will have included an API key that you will need to pass during all requests as a header. 
+Your email will have included an API key that you will need to pass during all requests as a header.
 This is documented for each endpoint.
 
 Requirements:

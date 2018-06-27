@@ -32,4 +32,26 @@ export default {
       return serializer(response.data);
     });
   },
+
+  deleteListing(selectedId) {
+    return API.delete('/listings/' + selectedId).then(response => {
+      return response.data;
+    });
+  },
+
+  editListing(selectedId, title, url) {
+    const body = {
+      data: {
+        type: 'listings',
+        attributes: {
+          title: title,
+          url: url
+        }
+      }
+    };
+    return API.put('/listings/' + selectedId, body).then(response => {
+      return serializer(response.data);
+    });
+  }
+
 };

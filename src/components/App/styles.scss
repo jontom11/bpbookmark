@@ -60,6 +60,17 @@ $breakpoint-mobile: 450px;
   }
 }
 
+.cardStyle {
+  margin: 5px;
+  width: 350px;
+  display: flex
+};
+
+.listingContainer {
+  display: flex;
+  flex-wrap: wrap
+}
+
 @media (max-width: $breakpoint-mobile) {
   .listingItem {
     float: none;
