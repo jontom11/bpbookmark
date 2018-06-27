@@ -6,7 +6,7 @@ class NewListingForm extends Component {
   constructor() {
     super();
     this.state = {
-      title: 'NAME',
+      title: '',
       url: '',
       showError: false
     };
@@ -49,6 +49,7 @@ class NewListingForm extends Component {
 
   //editDialog prop holds App index state.listings
   renderValue() {
+    console.log('this.props', this.props.editDialog);
     return this.props.editDialog ? this.props.editDialog : this.state;
   }
 
