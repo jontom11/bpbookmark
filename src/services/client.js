@@ -53,5 +53,4 @@ export default {
       return serializer(response.data);
     });
   }
-
 };

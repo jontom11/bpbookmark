@@ -23,7 +23,7 @@ export default class App extends Component {
   componentDidMount() {
     return client.getListings().then(listings => {
       return this.setState({ listings: listings, showServerError: false, open: false,
-      selectedIndex: '', newTitle: '', newUrl: ''});
+      selectedIndex: ''});
     }).catch(() => {
       return this.setState({ showServerError: true });
     });
@@ -53,7 +53,6 @@ export default class App extends Component {
     client.deleteListing(listId);
   }
 
-  //opens edit dialog and sets state for selectedIndex
   handleEdit(index) {
     this.setState({open: true, selectedIndex: index});
   }
@@ -84,7 +83,6 @@ export default class App extends Component {
     }
 
     this.setState({listings: copyListings});
-
     this.handleDialogClose();
 
     //Prevents API calls if nothing changed as client calls may be expensive
@@ -105,9 +103,9 @@ export default class App extends Component {
       }
     };
 
-    const actions = [
+    const dialogAction = [
       <FlatButton
-        key={1}
+        key='canelButton'
         label="Cancel"
         primary={true}
         onClick={this.handleDialogClose.bind(this)}
@@ -117,36 +115,42 @@ export default class App extends Component {
     let listings = this.state.listings.map( (listing, index) => {
       return(
         <Card className={styles.cardStyle} key={index}>
+          {/*Opens tab when title || url is clicked*/}
           <CardHeader
             title={listing.title}
             subtitle={listing.url}
-            onClick={ ()=> window.open(listing.url)}
+            onClick={()=> window.open(listing.url)}
             className={styles.cardHeaderHover}
           />
           <CardActions>
+          {/*Edit and Delete icon buttons*/}
           <IconButton
             tooltipPosition="top-center"
             tooltip="Edit"
             iconStyle={style.smallIcon}
+            onClick={this.handleEdit.bind(this, index)}
           >
-            <ImageEdit label="Edit" onClick={this.handleEdit.bind(this, index)}/>
+            <ImageEdit label="Edit"/>
           </IconButton>
           <IconButton
             tooltipPosition="top-center"
             tooltip="Delete"
             iconStyle={style.smallIcon}
+            onClick={this.handleDelete.bind(this, index)}
           >
-            <ActionDelete label="Delete" onClick={this.handleDelete.bind(this, index)} />
+            <ActionDelete label="Delete"/>
           </IconButton>
           </CardActions>
         </Card>
       );
     });
 
+    //Edit dialog contains newListingForm that passes new input dataa
+    //and a new edit prop boolean to declare this submit as an edit listing
     let dialog = (
       <Dialog
         title="Edit bookmark"
-        actions={actions}
+        actions={dialogAction}
         modal={false}
         open={this.state.open}
         onRequestClose={this.handleDialogClose.bind(this)}
