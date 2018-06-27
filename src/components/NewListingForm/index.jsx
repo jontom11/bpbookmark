@@ -16,7 +16,6 @@ class NewListingForm extends Component {
     event.preventDefault();
     const title = this.state.title;
     const url = this.state.url;
-    console.log('this.props:', this.props);
 
     //no promise necessary when editing listings
     if (this.props.edit) {
@@ -30,13 +29,6 @@ class NewListingForm extends Component {
     }
   }
 
-  onChangeName(data) {
-    this.setState({
-      title: data.title,
-      url: data.url
-    });
-  }
-
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
@@ -45,12 +37,6 @@ class NewListingForm extends Component {
     this.setState({
       [name]: value
     });
-  }
-
-  //editDialog prop holds App index state.listings
-  renderValue() {
-    console.log('this.props', this.props.editDialog);
-    return this.props.editDialog ? this.props.editDialog : this.state;
   }
 
   render() {
@@ -65,7 +51,7 @@ class NewListingForm extends Component {
               type="text"
               placeholder="Name"
               name="title"
-              value={this.renderValue().title}
+              value={this.state.title}
               onChange={(event) => this.handleInputChange(event)}
               aria-label="Name"
               aria-required="true"
@@ -74,7 +60,7 @@ class NewListingForm extends Component {
               type="url"
               placeholder="URL"
               name="url"
-              value={this.renderValue().url}
+              value={this.state.url}
               onChange={(event) => this.handleInputChange(event)}
               aria-label="URL"
               aria-required="true"
@@ -91,7 +77,6 @@ NewListingForm.propTypes = {
   className: PropTypes.string,
   onSubmit: PropTypes.func,
   edit: PropTypes.bool,
-  editDialog: PropTypes.object
 };
 
 export default NewListingForm;
