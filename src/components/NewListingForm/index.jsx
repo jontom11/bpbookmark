@@ -17,11 +17,17 @@ class NewListingForm extends Component {
     const title = this.state.title;
     const url = this.state.url;
 
-    return this.props.onSubmit(title, url).then(() => {
-      return this.setState({ title: '', url: '', showError: false });
-    }).catch(() => {
-      return this.setState({ showError: true });
-    });
+    //no promise necessary when editing listings
+    if (this.props.edit) {
+      return this.props.onSubmit(title, url);
+    } else {
+      return this.props.onSubmit(title, url).then(() => {
+        return this.setState({ title: '', url: '', showError: false });
+      }).catch(() => {
+        return this.setState({ showError: true });
+      });
+
+    }
   }
 
   handleInputChange(event) {
@@ -67,7 +73,8 @@ class NewListingForm extends Component {
 
 NewListingForm.propTypes = {
   className: PropTypes.string,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
+  edit: PropTypes.bool
 };
 
 export default NewListingForm;

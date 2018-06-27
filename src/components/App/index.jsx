@@ -3,9 +3,10 @@ import client from '../../services/client';
 import NewListingForm from '../NewListingForm';
 import styles from './styles.scss';
 import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
 import {Card, CardActions, CardHeader} from 'material-ui/Card';
 import Dialog from 'material-ui/Dialog';
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
 
 export default class App extends Component {
   constructor() {
@@ -14,9 +15,7 @@ export default class App extends Component {
       listings: [],
       showServerError: false,
       open: false,
-      selectedIndex: '',
-      newTitle: '',
-      newUrl: ''
+      selectedIndex: ''
     };
   }
 
@@ -60,10 +59,12 @@ export default class App extends Component {
 
   //Edit Submit click will determine if title || URL changed before setting
   //state and passing data on to API
-  handleEditSubmitClick() {
+  handleEditSubmitClick(title1, url1) {
     let selectedIndex = this.state.selectedIndex;
-    let newTitle = this.state.newTitle;
-    let newUrl = this.state.newUrl;
+    // let newTitle = this.state.newTitle;
+    // let newUrl = this.state.newUrl;
+    let newTitle = title1;
+    let newUrl = url1;
 
     let listId = this.state.listings[selectedIndex].id;
     let copyListings = this.state.listings;
@@ -93,16 +94,17 @@ export default class App extends Component {
     }
   }
 
-  handleTitleChange(e) {
-    this.setState({newTitle: e.target.value});
-  }
-
-  handleUrlChange(e) {
-    this.setState({newUrl: e.target.value});
-  }
-
   handleDialogClose() {
     this.setState({open: false});
+  }
+
+  getData() {
+    let data = {};
+    if (this.state.selectedIndex !== '') {
+      data['title'] = this.state.listings[this.state.selectedIndex].title;
+      data['url'] = this.state.listings[this.state.selectedIndex].url;
+    }
+    return data;
   }
 
   // create Delete listings case calling client.delete
@@ -114,13 +116,7 @@ export default class App extends Component {
         label="Cancel"
         primary={true}
         onClick={this.handleDialogClose.bind(this)}
-      />,
-      <FlatButton
-        key={2}
-        label="Submit"
-        primary={true}
-        onClick={this.handleEditSubmitClick.bind(this)}
-      />,
+      />
     ];
 
     let listings = this.state.listings.map( (listing, index) => {
@@ -131,8 +127,12 @@ export default class App extends Component {
             subtitle={listing.url}
           />
           <CardActions>
+          <IconButton tooltip="SVG Icon">
+                <ActionHome />
+              </IconButton>
           <FlatButton label="Delete" onClick={this.handleDelete.bind(this, index)} />
           <FlatButton label="Edit" onClick={this.handleEdit.bind(this, index)}/>
+          <FlatButton label="Go" onClick={ ()=> window.open(listing.url)}/>
           </CardActions>
         </Card>
       );
@@ -140,24 +140,16 @@ export default class App extends Component {
 
     let dialog = (
       <Dialog
-        title="Edit Title and URL"
+        title="Edit bookmark"
         actions={actions}
         modal={false}
         open={this.state.open}
         onRequestClose={this.handleDialogClose.bind(this)}
       >
-        <TextField
-          id='newTitleInput'
-          floatingLabelText="Title:"
-          defaultValue={this.state.listings[this.state.selectedIndex]}
-          fullWidth={true}
-          onChange = {this.handleTitleChange.bind(this)}
-        />
-        <TextField
-          id='newUrlInput'
-          floatingLabelText="Url:"
-          fullWidth={true}
-          onChange = {this.handleUrlChange.bind(this)}
+        <NewListingForm
+          className={styles.newListingForm}
+          onSubmit={(title, url) => this.handleEditSubmitClick(title, url)}
+          edit={true}
         />
       </Dialog>
     );

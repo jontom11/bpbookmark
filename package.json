@@ -8,9 +8,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --env=dev --watch --open",
-    "build": "webpack --env=prod",
-    "heroku-postbuild": "yarn --production=false && yarn run build"
-
+    "build": "webpack --env=prod"
   },
   "dependencies": {
     "axios": "^0.16.2",
