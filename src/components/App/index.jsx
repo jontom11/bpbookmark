@@ -159,6 +159,7 @@ export default class App extends Component {
           className={styles.newListingForm}
           onSubmit={(title, url) => this.handleEditSubmitClick(title, url)}
           edit={true}
+          editDialogInput={this.state.listings[this.state.selectedIndex]}
         />
       </Dialog>
     );

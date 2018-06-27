@@ -12,6 +12,16 @@ class NewListingForm extends Component {
     };
   }
 
+  //To pass name and url from parent to Edit dialog value
+  componentDidMount() {
+    if (this.props.editDialogInput) {
+      this.setState({
+        title: this.props.editDialogInput.title,
+        url: this.props.editDialogInput.url
+      });
+    }
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     const title = this.state.title;
@@ -76,6 +86,7 @@ class NewListingForm extends Component {
 NewListingForm.propTypes = {
   className: PropTypes.string,
   onSubmit: PropTypes.func,
+  editDialogInput: PropTypes.object,
   edit: PropTypes.bool,
 };
 
