@@ -6,7 +6,7 @@ class NewListingForm extends Component {
   constructor() {
     super();
     this.state = {
-      title: '',
+      title: 'NAME',
       url: '',
       showError: false
     };
@@ -16,6 +16,7 @@ class NewListingForm extends Component {
     event.preventDefault();
     const title = this.state.title;
     const url = this.state.url;
+    console.log('this.props:', this.props);
 
     //no promise necessary when editing listings
     if (this.props.edit) {
@@ -29,6 +30,13 @@ class NewListingForm extends Component {
     }
   }
 
+  onChangeName(data) {
+    this.setState({
+      title: data.title,
+      url: data.url
+    });
+  }
+
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
@@ -39,16 +47,24 @@ class NewListingForm extends Component {
     });
   }
 
+  //editDialog prop holds App index state.listings
+  renderValue() {
+    return this.props.editDialog ? this.props.editDialog : this.state;
+  }
+
   render() {
     return(
       <div className={this.props.className}>
-        <form className={styles.newListing} onSubmit={(event) => this.handleSubmit(event)}>
+        <form
+          className={styles.newListing}
+          onSubmit={(event) => this.handleSubmit(event)}
+        >
           <fieldset>
             <input
               type="text"
               placeholder="Name"
               name="title"
-              value={this.state.title}
+              value={this.renderValue().title}
               onChange={(event) => this.handleInputChange(event)}
               aria-label="Name"
               aria-required="true"
@@ -57,7 +73,7 @@ class NewListingForm extends Component {
               type="url"
               placeholder="URL"
               name="url"
-              value={this.state.url}
+              value={this.renderValue().url}
               onChange={(event) => this.handleInputChange(event)}
               aria-label="URL"
               aria-required="true"
@@ -73,7 +89,8 @@ class NewListingForm extends Component {
 NewListingForm.propTypes = {
   className: PropTypes.string,
   onSubmit: PropTypes.func,
-  edit: PropTypes.bool
+  edit: PropTypes.bool,
+  editDialog: PropTypes.object
 };
 
 export default NewListingForm;
